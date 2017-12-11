@@ -152,6 +152,10 @@ RE.setHeading = function(heading) {
     document.execCommand('formatBlock', false, '<h'+heading+'>');
 }
 
+function f1(){
+var text=document.getElementById("editor").innerText;
+      WebView.onText(text);
+}
 RE.setIndent = function() {
     document.execCommand('indent', false, null);
 }

@@ -30,6 +30,18 @@ public class MainActivity extends AppCompatActivity {
         mEditor.setPlaceholder("Insert text here...");
         //mEditor.setInputEnabled(false);
 
+        View viewById = findViewById(R.id.bt);
+        viewById.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mEditor.getText(new RichEditor.OnText() {
+                    @Override
+                    public void onText(String text) {
+                        System.out.println(text.replace("/n", ""));
+                    }
+                });
+            }
+        });
         mPreview = (TextView) findViewById(R.id.preview);
         mEditor.setOnTextChangeListener(new RichEditor.OnTextChangeListener() {
             @Override
@@ -216,7 +228,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 mEditor.insertImage("https://www.eqid.top:8009/image/20171208/upload/17120814161689305.png",
-                        "dachshund",30);
+                        "dachshund", 30);
             }
         });
 

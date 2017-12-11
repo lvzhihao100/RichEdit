@@ -18,6 +18,7 @@ import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.Gravity;
+import android.webkit.JavascriptInterface;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -100,7 +101,6 @@ public class RichEditor extends WebView {
         this(context, attrs, android.R.attr.webViewStyle);
     }
 
-    @SuppressLint("SetJavaScriptEnabled")
     public RichEditor(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
@@ -111,9 +111,20 @@ public class RichEditor extends WebView {
         setWebViewClient(createWebviewClient());
         getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
         requestFocus();
+        addJavascriptInterface(new JSInterface(), "WebView");
         loadUrl(SETUP_HTML);
 
         applyAttributes(context, attrs);
+    }
+
+
+    private class JSInterface {
+        @JavascriptInterface
+        public void onText(String text) {
+           if (onText!=null){
+               onText.onText(text);
+           }
+        }
     }
 
     protected EditorWebViewClient createWebviewClient() {
@@ -203,7 +214,15 @@ public class RichEditor extends WebView {
     public String getHtml() {
         return mContents;
     }
+    private OnText  onText;
 
+    public void getText(OnText onText) {
+        this.onText=onText;
+        loadUrl("javascript:f1()");
+    }
+public interface OnText{
+        void onText(String text);
+}
     public void setEditorFontColor(int color) {
         String hex = convertHexColorString(color);
         exec("javascript:RE.setBaseTextColor('" + hex + "');");
