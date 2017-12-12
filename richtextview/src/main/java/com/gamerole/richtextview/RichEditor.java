@@ -121,9 +121,9 @@ public class RichEditor extends WebView {
     private class JSInterface {
         @JavascriptInterface
         public void onText(String text) {
-           if (onText!=null){
-               onText.onText(text);
-           }
+            if (onText != null) {
+                onText.onText(text);
+            }
         }
     }
 
@@ -214,15 +214,18 @@ public class RichEditor extends WebView {
     public String getHtml() {
         return mContents;
     }
-    private OnText  onText;
+
+    private OnText onText;
 
     public void getText(OnText onText) {
-        this.onText=onText;
+        this.onText = onText;
         loadUrl("javascript:f1()");
     }
-public interface OnText{
+
+    public interface OnText {
         void onText(String text);
-}
+    }
+
     public void setEditorFontColor(int color) {
         String hex = convertHexColorString(color);
         exec("javascript:RE.setBaseTextColor('" + hex + "');");
@@ -303,6 +306,10 @@ public interface OnText{
                 "    head.appendChild(link);" +
                 "}) ();";
         exec("javascript:" + jsCSSImport + "");
+    }
+
+    public void insertHtml(String html) {
+        exec("javascript:RE.insertHTML('" + html + "');");
     }
 
     public void undo() {

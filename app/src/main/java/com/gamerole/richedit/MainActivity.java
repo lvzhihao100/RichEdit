@@ -34,12 +34,13 @@ public class MainActivity extends AppCompatActivity {
         viewById.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mEditor.getText(new RichEditor.OnText() {
-                    @Override
-                    public void onText(String text) {
-                        System.out.println(text.replace("/n", ""));
-                    }
-                });
+//                mEditor.getText(new RichEditor.OnText() {
+//                    @Override
+//                    public void onText(String text) {
+//                        System.out.println(text.replace("/n", ""));
+//                    }
+//                });
+                mEditor.insertHtml("<p style=\"border-top :1px solid #d9d9d9; padding: 20px 10px 0px 10px \"></p >");
             }
         });
         mPreview = (TextView) findViewById(R.id.preview);

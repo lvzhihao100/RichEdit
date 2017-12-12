@@ -156,6 +156,10 @@ function f1(){
 var text=document.getElementById("editor").innerText;
       WebView.onText(text);
 }
+RE.insertHTML = function(html) {
+    document.execCommand('insertHTML', false, html);
+    RE.enabledEditingItems();
+}
 RE.setIndent = function() {
     document.execCommand('indent', false, null);
 }
