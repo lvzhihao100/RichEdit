@@ -295,6 +295,7 @@ public class RichEditor extends WebView {
         exec("javascript:RE.setInputEnabled(" + inputEnabled + ")");
     }
 
+
     public void loadCSS(String cssFile) {
         String jsCSSImport = "(function() {" +
                 "    var head  = document.getElementsByTagName(\"head\")[0];" +
